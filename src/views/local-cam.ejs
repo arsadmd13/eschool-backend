@@ -1,0 +1,11 @@
+<div class="container-fluid" id="camDiv">
+			<div class="localStream" ng-controller="LocalStreamController as localStream">
+				<center>
+					<p>Room Name: <input ng-model="localStream.name" class="form-control" id="lcn" placeholder="Enter Faculty name/Classroom name" required/></p>
+					<video class="videoClass" width="100%" id="localVideo" muted="muted" autoplay="true"></video>
+					<li id="controlBtn" class="btn btn-primary btn-block" ng-click="localStream.toggleCam()">
+						<a id="link" href class="link">{{ localStream.cameraIsOn ? 'Stop' : 'Start' }}</a>
+					</li>
+				</center>
+			</div>
+</div>

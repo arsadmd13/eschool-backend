@@ -1,0 +1,9 @@
+.custom-bg{
+  background-color: #a6dcef !important;
+}
+.form-outline .form-control{
+  border:0px;
+}
+.form-outline{
+  border-bottom: 1px solid #ccc !important;
+}
