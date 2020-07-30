@@ -1,11 +1,40 @@
-<div class="container-fluid" id="camDiv">
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
 			<div class="localStream" ng-controller="LocalStreamController as localStream">
 				<center>
-					<p>Room Name: <input ng-model="localStream.name" class="form-control" id="lcn" placeholder="Enter Faculty name/Classroom name" required/></p>
-					<video class="videoClass" width="100%" id="localVideo" muted="muted" autoplay="true"></video>
-					<li id="controlBtn" class="btn btn-primary btn-block" ng-click="localStream.toggleCam()">
+					<p><input ng-model="localStream.name" class="form-control" id="lcn" placeholder="Enter Faculty name/Classroom name" required/></p>
+					<video class="videoClass hide" width="100%" id="localVideo" muted="muted" autoplay="true"></video>
+					<li id="controlBtn" class="btn btn-primary btn-block camBtn" ng-click="localStream.toggleCam()">
 						<a id="link" href class="link">{{ localStream.cameraIsOn ? 'Stop' : 'Start' }}</a>
 					</li>
 				</center>
 			</div>
-</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+	<div class="row" id="cmntRow">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="" ng-controller="RemoteStreamsController as rtc">
+				<form class="form-control" style="width:100% !important;">
+					<div class="form-outline mb-3 commentDiv" style="width:100% !important;">
+					  <textarea class="form-control commentTextArea" style="border: 0px !important;width:100% !important;" id="commentText" name="commentText" rows="3" cols="80" ngModel #commentText="ngModel"></textarea>
+					  <label class="form-label" for="commentText">Comment...</label>
+					  <div class="invalid-feedback w-auto">
+						Please enter a  comment.
+					  </div>
+					</div>
+					<button #commentSubmit ng-click="rtc.onCommentAdded()" type="submit" class="btn btn-primary btn-block cmntBtn">Add Comment</button>
+				</form>
+				<div id="alertDiv">
+				</div>
+				<div class="mb-4 custom-comment-div" id="commentListDiv">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+<input type="hidden" id="username" name="username" value=""/>
+<input type="hidden" id="currentVideoId" name="currentVideoId" value=""/>
+

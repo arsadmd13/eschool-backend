@@ -1,6 +1,5 @@
 module.exports = function(app, streams) {
 
-
   app.get('/watchstream', (req, res) => {
     res.render('view', {title:"Watch Stream"})
   })
@@ -16,6 +15,5 @@ module.exports = function(app, streams) {
   };
 
   app.get('/streams.json', displayStreams);
-
 
 }

@@ -8,6 +8,10 @@ const commentSchema = {
   message:{
     type: String,
     required: true
+  },
+  streamId:{
+    type: String,
+    required: true
   }
 }
 

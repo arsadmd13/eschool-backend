@@ -25,7 +25,7 @@ var PeerManager = (function () {
   });
 
   function addPeer(remoteId) {
-    var peer = new Peer(config.peerConnectionConfig, config.peerConnectionConstraints);
+    var peer = new Peer(config.peerConnectionConfig, config.peerConnectionConstraints, remoteId);
     peer.pc.onicecandidate = function(event) {
       if (event.candidate) {
         send('candidate', remoteId, {
@@ -87,7 +87,7 @@ var PeerManager = (function () {
         from = message.from,
         pc = (peerDatabase[from] || addPeer(from)).pc;
 
-    console.log('received ' + type + ' from ' + from);
+    //console.log('received ' + type + ' from ' + from);
 
     switch (type) {
       case 'init':
@@ -113,7 +113,7 @@ var PeerManager = (function () {
     }
   }
   function send(type, to, payload) {
-    console.log('sending ' + type + ' to ' + to);
+    //console.log('sending ' + type + ' to ' + to);
 
     socket.emit('message', {
       to: to,
@@ -172,13 +172,13 @@ var PeerManager = (function () {
 
 });
 
-var Peer = function (pcConfig, pcConstraints) {
+var Peer = function (pcConfig, pcConstraints, streamId) {
   this.pc = new RTCPeerConnection(pcConfig, pcConstraints);
   //
   this.remoteVideoEl = document.createElement('video');
   this.remoteVideoEl.id = "currentVideo"
   this.remoteVideoEl.controls = true;
   this.remoteVideoEl.autoplay = true;
-  this.remoteVideoEl.style.height="500px";
-  this.remoteVideoEl.style.width="850px";
+  this.remoteVideoEl.style.height="100%";
+  this.remoteVideoEl.style.width="100%";
 }

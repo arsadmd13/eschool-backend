@@ -8,11 +8,10 @@ module.exports = (app) => {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
-});
+  });
 
-    app.post("/comment/add", comment.create);
+  app.post("/comment/add", comment.add);
 
-    app.get("/comment/read", comment.readAll);
-
+  app.post("/comment/read", comment.readAll);
 
 };

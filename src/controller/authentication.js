@@ -53,7 +53,7 @@ exports.read = (req, res) => {
             if(!user) {
                 res.send({status: 404, message: "User not found!"});
             } else {
-              console.log(user);
+              //console.log(user);
                 res.send({status: 200, message: "Success!", user: user});
             }
         }

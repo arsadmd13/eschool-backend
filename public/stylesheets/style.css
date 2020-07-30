@@ -1,5 +1,7 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+  margin: 0px;
+  padding: 0px;
 }
 
 a {
@@ -31,11 +33,10 @@ li:hover {
 }
 
 .localStream video {
-
-    border: 0px solid rgb(119, 119, 119);
-    outline: 0px none;
-    height: 500px;
-    width: 850px;
+  border: 0px solid rgb(119, 119, 119);
+  outline: 0px none;
+  height: 100%;
+  width: 100%;
 }
 
 .remoteStreams{
@@ -48,8 +49,8 @@ li:hover {
 }
 
 .remoteStreams td:hover {
-  cursor: pointer;
-  background-color: #aaa;
+  /* cursor: pointer;
+  background-color: #aaa; */
 }
 
 /* .remoteStreams .selected {
@@ -65,9 +66,10 @@ li:hover {
    clear: both;
 }
 
-.btn{
+.camBtn{
   width: 100px !important;
   display: block !important;
+  margin-top: 20px;
 }
 
 .link{
@@ -76,6 +78,8 @@ li:hover {
 
 .videoClass{
   display: inline;
+  width: 100%;
+  height: 100%;
 }
 
 .hide{
@@ -92,5 +96,65 @@ li:hover {
 }
 
 .wrapperText{
-  padding-top: 250px;
+  padding-top: 25px;
+  font-size: 16px;
+}
+
+.form-outline{
+  border: 0px !important;
+}
+
+.commentDiv{
+  margin-top: 5px;
+  border: 0 !important;
+}
+
+.cmntBtn{
+  margin-bottom: 5px;
+}
+
+.custom-comment-div{
+  padding-top: 20px;
+  height: 400px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.commenttitle{
+  margin: 0%;
+}
+
+.commentmsg{
+  margin-bottom: 10px;
+}
+
+hr{
+  margin-top: 0px !important;
+  margin-bottom: 5px !important;
+}
+
+.alert{
+  margin-top: 20px;
+  margin-bottom: 0px !important;
+}
+
+div#container-fluid {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+div#container-fluid > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.row{
+  padding-top: 40px;
+}
+
+div#cmntRow{
+  padding-top: 20px;
 }

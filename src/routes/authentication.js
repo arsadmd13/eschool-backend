@@ -9,9 +9,8 @@ module.exports = (app) => {
     next();
   });
 
-    app.post("/faculty/register", authentication.create);
+  app.post("/faculty/register", authentication.create);
 
-    app.post("/faculty/login", authentication.read);
-
+  app.post("/faculty/login", authentication.read);
 
 };

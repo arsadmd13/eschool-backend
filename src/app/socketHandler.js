@@ -16,7 +16,7 @@ module.exports = function(io, streams) {
     });
 
     client.on('readyToStream', function(options) {
-      console.log('-- ' + client.id + ' is ready to stream --');
+      //console.log('-- ' + client.id + ' is ready to stream --');
 
       streams.addStream(client.id, options.name);
     });
@@ -32,5 +32,12 @@ module.exports = function(io, streams) {
 
     client.on('disconnect', leave);
     client.on('leave', leave);
+    client.on('AddComment', (options) => {
+      io.emit('AddComment', options);
+    })
+
+    client.on('RefreshStreams', () => {
+      io.emit('RefreshStreams')
+    })
   });
 };

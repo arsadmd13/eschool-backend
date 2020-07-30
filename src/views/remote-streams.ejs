@@ -1,24 +1,53 @@
-
-<div class="remoteStreams" ng-controller="RemoteStreamsController as rtc">
-	<center>
-
-	<div id="remoteVideosContainer"></div>
-	<h4>Streams</h4>
-	<table>
-    	<tbody>
-    		<tr ng-repeat="stream in rtc.remoteStreams" ng-class="{'selected' : stream.isPlaying}">
-        		<td><a>{{stream.name}}</a></td>
-                <td ng-click="rtc.view(stream)"><a>Join</a></td>
-                <td ng-click="rtc.end(stream)"><a>End</a></td>
-    		</tr>
-		</tbody>
-	</table>
-
-	<li ng-click="rtc.loadData()" style="">
-        <a href><img src="img/reload.png" alt="refresh" width="30px" height="30px"></a>
-    </li>
-	</center>
-<div class="wrapper" id="wrapper">
-		<h4 class="wrapperText">Click join to attend the stream if available!</h4>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="remoteStreams" ng-controller="RemoteStreamsController as rtc">
+				<center>
+				<div id="remoteVideosContainer"></div>
+				<h4>Streams</h4>
+				<table>
+				<tbody>
+					<tr ng-repeat="stream in rtc.remoteStreams" ng-class="{'selected' : stream.isPlaying}">
+						<td><a>{{stream.name}}</a></td>
+						<td ng-click="rtc.view(stream)" id="{{stream.id + 'Join'}}"><a>Join</a></td>
+						<td ng-click="rtc.end(stream)" id="{{stream.id + 'End'}}"><a>End</a></td>
+						<td id="{{stream.id + 'check'}}" class="{{stream.class}}"><img src="img/check.svg" width=15px height=15px></img></td>
+					</tr>
+					</tbody>
+				</table>
+			
+				<li ng-click="rtc.loadData()" style="width:100px;">
+				<a href><img src="img/reload.png" alt="refresh" width="30px" height="30px"></a>
+			  </li>
+				</center>
+				<div class="wrapper" id="wrapper">
+					<h4 class="wrapperText">Click join to attend the stream if available!</h4>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
 	</div>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="" ng-controller="RemoteStreamsController as rtc">
+				<form class="form-control" style="width:100% !important;">
+					<div class="form-outline mb-3 commentDiv" style="width:100% !important;">
+					  <textarea class="form-control commentTextArea" style="border: 0px !important;width:100% !important;" id="commentText" name="commentText" rows="3" cols="80" ngModel #commentText="ngModel"></textarea>
+					  <label class="form-label" for="commentText">Comment...</label>
+					  <div class="invalid-feedback w-auto">
+						Please enter a  comment.
+					  </div>
+					</div>
+					<button #commentSubmit ng-click="rtc.onCommentAdded()" type="submit" class="btn btn-primary btn-block cmntBtn">Add Comment</button>
+				</form>
+				<div id="alertDiv">
+				</div>
+				<div class="mb-4 custom-comment-div" id="commentListDiv">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
 	</div>
+<input type="hidden" id="username" name="username" value=""/>
+<input type="hidden" id="currentVideoId" name="currentVideoId" value=""/>
