@@ -2,21 +2,19 @@ const User = require("../models/users");
 const crypto = require("crypto");
 const jwt = require('jsonwebtoken');
 
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
 
   const {name, email, password, password2, role, rtype, secTkn} = req.body;
 
   if(rtype === "AR"){
     if(typeof(secTkn) !== "undefined") {
-        let flag = 1;
+        let check = 1;
         jwt.verify(secTkn, "mysecretissecret", (err, data) => {
             if(err) {
-                flag = 0;
+              check = 0;
             }
         });
-        if(flag) {
-            next();
-        } else {
+        if(!check){
             res.send({status: 403, message: "Forbidden Access!"});
             return;
         }
@@ -26,7 +24,7 @@ exports.create = (req, res) => {
     }
   }
 
-  if(name == "" || email == "" || password == "" || password2 == "" || role == ""){
+  if(name === "" || email === "" || password === "" || password2 === "" || role === ""){
     res.send({status: 500, message: "Be sure to fill in all the fields!"});
     return;
   }
@@ -48,8 +46,8 @@ exports.create = (req, res) => {
         var plan = "NN"
       }
       var date = new Date();
-      var dor = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + ' ' + date.getHours() + ':' +
-        + date.getMinutes() + ':' + date.getSeconds();
+      var dor = ("0" + date.getDate()).substr(-2) + '-' + ("0" + (date.getMonth() + 1)).substr(-2) + '-' + date.getFullYear() + ' ' + date.getHours() + ':' +
+        + ("0" + date.getMinutes()).substr(-2) + ':' + ("0" + date.getSeconds()).substr(-2);
       const newUser = new User({
         name: name,
         email: email,
@@ -68,6 +66,7 @@ exports.create = (req, res) => {
           res.send({message: "Successfully Signed up!", status: 200});
           return;
         } else {
+          // console.log(err);
           res.send({message: "Unable to process your request! Please try again later", status: 500});
           return;
         }
@@ -90,7 +89,6 @@ exports.read = (req, res) => {
             if(!user) {
                 res.send({status: 404, message: "User not found!"});
             } else {
-              //console.log(user);
                 if(user.password === password){
                   jwt.sign({user}, 'mysecretissecret', (err, token) => {
                     if(!err)
@@ -100,6 +98,7 @@ exports.read = (req, res) => {
                   });
                   
                 } else {
+                  // console.log(err);
                   res.send({status: 400, message: "Invalid Credentials!"});
                 }
                 
@@ -122,10 +121,12 @@ exports.readall = (req, res) => {
           }
           res.send({status: 200, message: "Success", fusers: fusers, susers: susers})
         } else {
+          // console.log(err);
           res.send({status: 500, message: "Unable to process your request at the moment!"})
         }
       })
     } else {
+      // console.log(err);
       res.send({status: 500, message: "Unable to process your request at the moment!"})
     }
   })
@@ -144,6 +145,7 @@ exports.update = (req, res) => {
     if(!err){
       res.send({status: 200, message: "Success!"})
     } else {
+      // console.log(err);
       res.send({status: 500, message: "Unable to process your request at the moment!"})
     }
   })
