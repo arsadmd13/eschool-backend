@@ -36,7 +36,7 @@ function trace(text) {
 }
 
 if (navigator.mozGetUserMedia) {
-  console.log('This appears to be Firefox');
+  //console.log('This appears to be Firefox');
 
   webrtcDetectedBrowser = 'firefox';
 
@@ -140,7 +140,7 @@ if (navigator.mozGetUserMedia) {
   };
 
 } else if (navigator.webkitGetUserMedia) {
-  console.log('This appears to be Chrome');
+  //console.log('This appears to be Chrome');
 
   webrtcDetectedBrowser = 'chrome';
   // Temporary fix until crbug/374263 is fixed.
