@@ -5,7 +5,7 @@ const Upload = require("../models/upload");
 
 
 exports.upload = (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://angry-babbage-4c01cb.netlify.app");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Credentials', true);
 
   var hashfile = ""
@@ -28,7 +28,6 @@ var upload = multer({storage:store}).single('image');
 upload(req,res,function(err){
     if(err){
         res.send({status: 500, error:"Unable to process your request!"});
-        console.log(err);
     } else {
       var videoUrl = "https://nameless-plateau-81910.herokuapp.com/renderVideo/"+hashfile;
       const videoData = new Upload({
@@ -66,7 +65,6 @@ exports.render = (req, res, next) => {
       if(err) {
           res.send({status: 500, message: "Unable to fetch videos! Please Try Again Later.", error: err});
       } else {
-        //console.log(video);
           if(video.length == 1) {
               res.sendFile(videoPath + video[0].originalname);
           } else {

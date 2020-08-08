@@ -7,7 +7,7 @@ const	streams = require('./src/app/streams.js')();
 const cors = require('cors')
 const path = require('path')
 
-mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => console.log("DB Connected!"));
 
 const app = express()
@@ -28,7 +28,8 @@ app.set("view engine", "ejs");
 require("./src/routes/authentication")(app);
 require("./src/routes/comment")(app);
 require("./src/routes/uploader")(app);
-
+require("./src/routes/order")(app);
+require("./src/routes/cart")(app);
 require('./src/routes/livestream.js')(app, streams);
 
 var server = app.listen(process.env.PORT || 3000, () => console.log("Server is up and running!"))

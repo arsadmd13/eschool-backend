@@ -1,5 +1,5 @@
 const authentication = require("../controller/authentication");
-const cors = require('cors')
+const verifyToken = require("../middleware/jwtauth.middleware");
 
 module.exports = (app) => {
 
@@ -9,8 +9,12 @@ module.exports = (app) => {
     next();
   });
 
-  app.post("/faculty/register", authentication.create);
+  app.post("/user/register", authentication.create);
 
-  app.post("/faculty/login", authentication.read);
+  app.post("/user/login", authentication.read);
+
+  app.post("/user/read", verifyToken, authentication.readall);
+
+  app.post("/user/update", verifyToken, authentication.update);
 
 };

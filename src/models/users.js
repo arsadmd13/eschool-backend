@@ -16,6 +16,20 @@ const userSchema = {
   role:{
     type: String,
     required: true
+  },
+  dateofreg:{
+    type: String,
+    required: true
+  },
+  subscription: {
+    status: {
+      type: String,
+      required: false
+    },
+    plan: {
+      type: String,
+      required: false
+    }
   }
 }
 

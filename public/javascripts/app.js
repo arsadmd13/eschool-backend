@@ -1,5 +1,7 @@
 window.addEventListener('message', event => {
 	if (event.origin.startsWith('https://angry-babbage-4c01cb.netlify.app/')) {
+		console.log(event.origin);
+		console.log(event.data);
 		document.getElementById('username').value = event.data;
 	} else {
 		return; 
