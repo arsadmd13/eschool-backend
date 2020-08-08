@@ -2,7 +2,7 @@ window.addEventListener('message', event => {
 	console.log("Event Origin : " + event.origin);
 	console.log("Event data : " + event.data);
 	console.log("Check : " + event.origin.startsWith('https://angry-babbage-4c01cb.netlify.app'));
-	console.log("Check2 : " + event.origin.startsWith('http://localhost:3000'));
+	console.log("Check2 : " + event.origin.startsWith('http://localhost:4200'));
 	if (event.origin.startsWith('https://angry-babbage-4c01cb.netlify.app/')) {
 		console.log(event.origin);
 		console.log(event.data);
