@@ -16,8 +16,8 @@ exports.create = (req, res) => {
         payment_capture: '1'
     };
     var instance = new Razorpay({
-        key_id: 'rzp_test_pXdODSmlRPHKap',
-        key_secret: 'bQfZH2s1k65e4xByo5KBiSOf'
+        key_id: process.env.RAZORPAY_SECRET_ID,
+        key_secret: process.env.RAZORPAY_SECRET_KEY
     })
     instance.orders.create(options).then((order) => {
         var unixDate = new Date(order.created_at * 1000);

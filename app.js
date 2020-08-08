@@ -6,6 +6,7 @@ const db = require("./src/config/db").MongoURI
 const	streams = require('./src/app/streams.js')();
 const cors = require('cors')
 const path = require('path')
+require('dotenv').config({path: __dirname + '/src/config/.env'})
 
 mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => console.log("DB Connected!"));

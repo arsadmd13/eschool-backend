@@ -4,7 +4,7 @@ function verifyToken(req, res, next){
     let {secTkn} = req.body;
     if(typeof(secTkn) !== "undefined") {
         let check = 1;
-        jwt.verify(secTkn, "mysecretissecret", (err, data) => {
+        jwt.verify(secTkn, process.env.JWT_SECRET_KEY, (err, data) => {
             if(err) {
                 check = 0;
             }

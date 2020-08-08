@@ -9,7 +9,7 @@ module.exports = (app) => {
     next();
   });
 
-  app.post("/order", verifyToken, order.create);
+  app.post("/order", order.create);
 
   app.post("/order/update", verifyToken, order.update);
 
