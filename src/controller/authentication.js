@@ -77,10 +77,13 @@ exports.create = (req, res, next) => {
 };
 
 exports.read = (req, res) => {
-    let email = req.body.email;
-    let role = req.body.role;
-    if(typeof(req.body.password) !== "undefined"){
-	      var password = crypto.createHash('md5').update(req.body.password.toString()).digest("hex");
+    const {email, password, role} = req.body;
+    if(email === "" || password === ""){
+      res.send({status: 500, message: "Be sure to fill in all the fields!"});
+      return;
+    }
+    if(typeof(password) !== "undefined"){
+	      var hashpassword = crypto.createHash('md5').update(req.body.password.toString()).digest("hex");
     }
     User.findOne({email: email, role: role}, (err, user) => {
         if(err) {
@@ -89,7 +92,7 @@ exports.read = (req, res) => {
             if(!user) {
                 res.send({status: 404, message: "User not found!"});
             } else {
-                if(user.password === password){
+                if(user.password === hashpassword){
                   jwt.sign({user}, 'mysecretissecret', (err, token) => {
                     if(!err)
                       res.send({status: 200, message: "Success!", user: user, token: token});
@@ -135,15 +138,28 @@ exports.readall = (req, res) => {
 }
 
 exports.update = (req, res) => {
-  const {password, password2, userId} = req.body;
-  if(password !== password2){
+  const {oldpassword, newpassword, newpassword2, userId} = req.body;
+  if(oldpassword === "" || newpassword === "" || newpassword2 === ""){
+    res.send({status: 500, message: "Be sure to fill in all the fields!"});
+    return;
+  }
+  if(newpassword !== newpassword2){
     res.send({status: 500, message: "Password does not match! Please Try Again Later."});
     return;
   }
-  let hashPassword = crypto.createHash('md5').update(password).digest("hex");
-  User.findOneAndUpdate({_id: userId}, {password: hashPassword}, (err, user) => {
+  if(oldpassword === newpassword){
+    res.send({status: 500, message: "Your new password should not be same as the old password!."});
+    return;
+  }
+  var hasholdPassword = crypto.createHash('md5').update(oldpassword).digest("hex");
+  var hashnewPassword = crypto.createHash('md5').update(newpassword).digest("hex");
+  User.findOneAndUpdate({_id: userId, password: hasholdPassword}, {password: hashnewPassword}, {new: true}, (err, user) => {
     if(!err){
-      res.send({status: 200, message: "Success!"})
+      if(!user){
+        res.send({status: 404, message: "Your old passowd does not macth our record!!"})
+      } else {
+        res.send({status: 200, message: "Success!"})
+      }
     } else {
       // console.log(err);
       res.send({status: 500, message: "Unable to process your request at the moment!"})
